@@ -1,17 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { removeFeature } from '../actions';
 
 import AddedFeature from './AddedFeature';
 
 const AddedFeatures = props => {
+  const car = useSelector(state => state.car);
+  const dispatch = useDispatch();
+
   return (
     <div className="content">
       <h6>Added features:</h6>
-      {props.car.features.length ? (
+      {car.features.length ? (
         <ol type="1">
-          {props.car.features.map(item => (
-            <AddedFeature removeFeature={props.removeFeature} key={item.id} feature={item} />
+          {car.features.map(item => (
+            <AddedFeature dispatch={dispatch} removeFeature={removeFeature} key={item.id} feature={item} />
           ))}
         </ol>
       ) : (
@@ -21,8 +25,10 @@ const AddedFeatures = props => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { car: state.car }
-}
+// const mapStateToProps = (state) => {
+//   return { car: state.car }
+// }
 
-export default connect(mapStateToProps, { removeFeature })(AddedFeatures);
+// export default connect(mapStateToProps, { removeFeature })(AddedFeatures);
+
+export default AddedFeatures;
